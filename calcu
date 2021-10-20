@@ -51,13 +51,13 @@ class Ui_Form(object):
         self.pushButton_9 = QtWidgets.QPushButton(Form, clicked = lambda: self.press_it("9"))
         self.pushButton_9.setGeometry(QtCore.QRect(210, 230, 71, 51))
         self.pushButton_9.setObjectName("pushButton_9")
-        self.pushButton_equal = QtWidgets.QPushButton(Form, clicked = lambda: self.press_it("="))
+        self.pushButton_equal = QtWidgets.QPushButton(Form, clicked = lambda: self.math())
         self.pushButton_equal.setGeometry(QtCore.QRect(30, 300, 71, 51))
         self.pushButton_equal.setObjectName("pushButton_equal")
         self.pushButton_0 = QtWidgets.QPushButton(Form, clicked = lambda: self.press_it("0"))
         self.pushButton_0.setGeometry(QtCore.QRect(120, 300, 71, 51))
         self.pushButton_0.setObjectName("pushButton_0")
-        self.pushButton_decimal = QtWidgets.QPushButton(Form, clicked = lambda: self.press_it("."))
+        self.pushButton_decimal = QtWidgets.QPushButton(Form, clicked = lambda: self.dot())
         self.pushButton_decimal.setGeometry(QtCore.QRect(210, 300, 71, 51))
         self.pushButton_decimal.setObjectName("pushButton_decimal")
         self.pushButton_divide = QtWidgets.QPushButton(Form, clicked = lambda: self.press_it("/"))
@@ -82,8 +82,26 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+    def dot(self):
+        screen = self.label.text()
+        if screen[-1] != '.':
+            self.label.setText(f'{screen}.')
+    
+    def math(self):
+        screen = self.label.text()
+        try:
+            answer = eval(screen)
+            self.label.setText(str(answer))
+        except:
+            self.label.setText("ERROR")
+
     def press_it(self, pressed):
-        self.label.setText(pressed)
+        if pressed == 'C':
+            self.label.setText("0")
+        else:
+            if self.label.text() == "0":
+                self.label.setText("")
+            self.label.setText(f'{self.label.text()}{pressed}')
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
