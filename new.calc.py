@@ -133,9 +133,11 @@ class Ui_Form(object):
         
     def dot(self):
         screen = self.label.text()
-        if screen[-1] != '.':
+        symbol = ["+", "-", '*', '/']
+        if screen[-1] != '.' and screen[-1] not in symbol:
             self.label.setText(f'{screen}.')
-    
+
+
     def math(self):
         screen = self.label.text()
         try:
