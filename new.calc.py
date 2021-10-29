@@ -21,7 +21,7 @@ class Ui_Form(object):
         self.pushButton_1.setStyleSheet("background-color:rgb(255, 241, 160)")
         self.pushButton_1.setObjectName("pushButton_1")
         self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(30, 60, 321, 41))
+        self.label.setGeometry(QtCore.QRect(30, 60, 321, 45))
         font = QtGui.QFont()
         font.setFamily("Mongolian Baiti")
         font.setPointSize(20)
@@ -118,7 +118,6 @@ class Ui_Form(object):
 
     def ce(self):
         screen = self.label.text()
-        x = -1
         symbol = ["+", "-", '*', '/']
         symsym = 0
         for i in screen:
@@ -127,8 +126,8 @@ class Ui_Form(object):
         if symsym == 0:
             self.label.setText("0")
         else:
-            while screen[x] not in symbol:
-                screen = screen[:x]
+            while screen[-1] not in symbol:
+                screen = screen[:-1]
             self.label.setText(screen)
         
     def dot(self):
@@ -151,10 +150,7 @@ class Ui_Form(object):
         symbol = ["+", "-", '*', '/']
         if pressed == 'C':
             self.label.setText("0")
-        elif pressed in symbol and screen[-1] in symbol:
-            screen = screen[:-1]
-            self.label.setText(screen + pressed)
-        elif pressed in symbol and screen[-1] == '.' :
+        elif pressed in symbol and (screen[-1] in symbol or screen[-1] == '.'):
             screen = screen[:-1]
             self.label.setText(screen + pressed)
         else:
