@@ -168,7 +168,7 @@ class Ui_Form(object):
                 self.label.setText("")
                 can_deci = True
             if pressed in symbol:
-                can_deci = True
+                can_deci = True 
             self.label.setText(f'{self.label.text()}{pressed}')
 
     def retranslateUi(self, Form):
