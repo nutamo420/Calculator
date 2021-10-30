@@ -159,7 +159,6 @@ class Ui_Form(object):
         symbol = ["+", "-", '*', '/']
         if pressed == 'C':
             self.label.setText("0")
-            can_deci = True
         elif pressed in symbol and (screen[-1] in symbol or screen[-1] == '.'):
             screen = screen[:-1]
             self.label.setText(screen + pressed)
