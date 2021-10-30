@@ -111,15 +111,22 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+    can_deci = True
+
     def delete(self):
+        global can_deci
         screen = self.label.text()
+        if screen[-1] == '.':
+            can_deci = True
         screen = screen[:-1]
         self.label.setText(screen)
 
     def ce(self):
+        global can_deci
         screen = self.label.text()
         symbol = ["+", "-", '*', '/']
         symsym = 0
+        can_deci = True
         for i in screen:
             if i in symbol:
                 symsym += 1
@@ -129,13 +136,14 @@ class Ui_Form(object):
             while screen[-1] not in symbol:
                 screen = screen[:-1]
             self.label.setText(screen)
-        
+
     def dot(self):
+        global can_deci
         screen = self.label.text()
         symbol = ["+", "-", '*', '/']
-        if screen[-1] != '.' and screen[-1] not in symbol:
+        if screen[-1] != '.' and screen[-1] not in symbol and can_deci is True:
             self.label.setText(f'{screen}.')
-
+            can_deci = False
 
     def math(self):
         screen = self.label.text()
@@ -146,16 +154,22 @@ class Ui_Form(object):
             self.label.setText("ERROR")
 
     def press_it(self, pressed):
+        global can_deci
         screen = self.label.text()
         symbol = ["+", "-", '*', '/']
         if pressed == 'C':
             self.label.setText("0")
+            can_deci = True
         elif pressed in symbol and (screen[-1] in symbol or screen[-1] == '.'):
             screen = screen[:-1]
             self.label.setText(screen + pressed)
+            can_deci = True
         else:
             if self.label.text() == "0":
                 self.label.setText("")
+                can_deci = True
+            if pressed in symbol:
+                can_deci = True
             self.label.setText(f'{self.label.text()}{pressed}')
 
     def retranslateUi(self, Form):
